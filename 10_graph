@@ -1,0 +1,41 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+df = pd.read_csv("veriseti.csv")
+
+
+print(df.info())
+
+
+print(df.describe())
+
+# Kategorik değişkenlerin sınıf sayısı
+print(df["kategori"].value_counts())
+
+# Sayısal değişkenlerin histogramları
+df.hist(bins=20, figsize=(10,8))
+plt.show()
+
+# Sayısal değişkenlerin boxplotları
+df.plot(kind="box", subplots=True, layout=(3,3), figsize=(12,10))
+plt.show()
+
+# Korelasyon matrisi
+corr_matrix = df.corr()
+sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
+plt.show()
+
+# Kategorik değişkenlerin çubuk grafikleri
+sns.countplot(x="kategori", data=df)
+plt.show()
+
+# Sayısal değişkenlerin dağılım grafikleri
+sns.displot(df, x="sayisal_degisken_1", hue="kategori", kde=True)
+sns.displot(df, x="sayisal_degisken_2", hue="kategori", kde=True)
+plt.show()
+
+# Scatterplot
+sns.scatterplot(x="sayisal_degisken_1", y="sayisal_degisken_2", hue="kategori", data=df)
+plt.show()
